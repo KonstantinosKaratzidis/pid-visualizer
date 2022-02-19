@@ -1,3 +1,8 @@
+const SLIDER_WIDTH = 200;
+const SLIDER_X = 10;
+const SLIDER_Y = 10;
+const SLIDER_SEP = 30;
+
 let platform = {
 	width: 400,
 	height: 2,
@@ -116,20 +121,44 @@ let system = {
 	}
 };
 
-function mouseDragged(){
-	pid.desired = height / 2 - mouseY;
-}
-
-function mouseClicked(){
-	pid.desired = height / 2 - mouseY;
-}
+// function mouseDragged(){
+// 	pid.desired = height / 2 - mouseY;
+// }
+// 
+// function mouseClicked(){
+// 	pid.desired = height / 2 - mouseY;
+// }
 
 function setup(){
+	// i: 2.4 * 1e-6,
+	// d: 700 * 1e-6,
+	this.p_slider = createSlider(0, 180, 90);
+	p_slider.position(SLIDER_X, SLIDER_Y + 0 * SLIDER_SEP);
+
+	this.i_slider = createSlider(0, 48, 24);
+	this.i_slider.position(SLIDER_X, SLIDER_Y + 1 * SLIDER_SEP);
+
+	this.d_slider = createSlider(0, 1400, 700);
+	this.d_slider.position(SLIDER_X, SLIDER_Y + 2 * SLIDER_SEP);
+
+	this.desired_slider = createSlider(50, 400, 150);
+	this.desired_slider.position(SLIDER_X, SLIDER_Y + 3 * SLIDER_SEP);
+
 	createCanvas(windowWidth, windowHeight);
 	fill(0);
 }
 
 function draw(){
+	const p_value = this.p_slider.value();
+	const i_value = this.i_slider.value() / 10;
+	const d_value = this.d_slider.value();
+	const desired_value = this.desired_slider.value();
+
+	pid.p = p_value * 1e-6;
+	pid.i = i_value * 1e-6;
+	pid.d = d_value * 1e-6;
+	pid.desired = desired_value;
+
 	background(255);
 	system.draw();
 
