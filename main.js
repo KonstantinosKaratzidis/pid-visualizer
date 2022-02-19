@@ -1,6 +1,6 @@
 const SLIDER_WIDTH = 200;
-const SLIDER_X = 10;
-const SLIDER_Y = 10;
+const SLIDER_X = 100;
+const SLIDER_Y = 50;
 const SLIDER_SEP = 30;
 
 let platform = {
@@ -148,6 +148,13 @@ function setup(){
 	fill(0);
 }
 
+function draw_text(){
+	texts = ["P", "I", "D", "Desired"];
+	for(let i = 0; i < texts.length; i++){
+		text(texts[i], SLIDER_X + SLIDER_WIDTH, SLIDER_Y + 15 + i * SLIDER_SEP);
+	}
+}
+
 function draw(){
 	const p_value = this.p_slider.value();
 	const i_value = this.i_slider.value() / 10;
@@ -161,6 +168,7 @@ function draw(){
 
 	background(255);
 	system.draw();
+	draw_text();
 
 	system.update(deltaTime);
 }
